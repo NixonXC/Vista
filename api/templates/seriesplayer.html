@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vista Movies</title>
-    <link rel="stylesheet" href="/static/style.css">
+    <title>{{ movie }}</title>
+    <meta name="description" content="{{ plot }}">
+    <link rel="stylesheet" href="/static/movies.css">
 </head>
 <body>
-    <!-- Navbar -->
     <nav class="navbar">
         <div class="nav-container">
             <h1 class="logo">Vista Movies</h1>
@@ -19,15 +19,14 @@
             </ul>
         </div>
     </nav>
-
-    <!-- Main Content -->
     <div class="main">
-        <form action="/movie" method="[POST,GET]">
-            <h1>Vista Movies</h1>
-            <p>Free Movies, TV Shows in a single click.</p>
-            <input type="text" id="name" name="name" placeholder="Movie Name" autocomplete="off">
-            <button type="submit">Search</button>
-        </form>
+        <iframe src="{{ vid }}" frameborder="0" allowfullscreen id="player"></iframe>
+        <h1> {{ movie }} </h1>
+        <p> {{ plot }} </p>
+        <p><span id="cyan">Season</span>: {{ season }} <span id="cyan">Episode: </span>{{ episode }}</p>
+        <p><span id="cyan">Release Year</span> {{ year }} </p>
+        <p><span id="cyan">Rating</span>: {{ rating }}/10 </p>
+        <p><span id="cyan">Genres</span>: <span id="bullet">{{ genre }}</span></p>
     </div>
 
     <script>

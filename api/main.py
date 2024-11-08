@@ -4,8 +4,13 @@ import requests
 app = Flask(__name__)
 
 @app.route('/')
-def home():
+def movies():
     return render_template('index.html')
+
+@app.route('/series')
+def series():
+    return render_template('series.html')
+
 
 url = "https://imdb8.p.rapidapi.com/title/find"
 
@@ -31,20 +36,54 @@ def movie():
     response = requests.get(url, headers=headers, params=querystring)
     data = response.json()["results"][0]
     id = data["id"].split("/")[2]
-    print(response.json())
     # Fetch detailed information using the ID
     meta = getInfo(id)
     
     # Extract relevant data from meta
     date = meta.get("year", "N/A")     
-    plot = meta.get("plot", "No plot available.")
+    plot = meta.get("simplePlot", "No plot available.")
     rating = meta.get("rating", "No rating.")
     genre = ', '.join(meta.get("genres", [])) 
     
     vidsrc = f"https://vidsrc.xyz/embed/movie?imdb={id}&ds_lang=en"
 
-    return render_template('movie.html', 
+    return render_template('movieplayer.html', 
                            movie=data["title"], 
+                           year=date, 
+                           plot=plot, 
+                           rating=rating, 
+                           genre=genre,
+                           vid = vidsrc
+                           )
+
+@app.route('/watch')
+def watch():
+    x = request.args.get('name')
+    y = request.args.get('epi')
+    z = request.args.get('season')
+    querystring = {"q":f"{x}"}
+    response = requests.get(url, headers=headers, params=querystring)
+    data = response.json()
+    id = data["results"][0]["id"].split("/")[2]
+    secondary = requests.get('https://imdb8.p.rapidapi.com/title/get-seasons', headers=headers, params={"tconst":id})
+    data_2 = secondary.json()
+    episode_title = data_2[int(z) - 1]["episodes"][int(y) - 1]["title"]
+    epid = data_2[int(z) - 1]["episodes"][int(y) - 1]["id"].split("/")[2]
+    tertiary = requests.get('https://imdb8.p.rapidapi.com/title/get-plots', headers=headers, params={"tconst": epid})
+    plot = tertiary.json()["plots"][0]["text"]
+    print(plot)
+    meta = getInfo(id)
+    
+    date = meta.get("year", "N/A")     
+    rating = meta.get("rating", "No rating.")
+    genre = ', '.join(meta.get("genres", [])) 
+    
+    vidsrc = f"https://vidsrc.xyz/embed/tv?imdb={id}&season={z}&episode={y}"
+
+    return render_template('seriesplayer.html', 
+                           movie=x + " | " + episode_title, 
+                           season=z,
+                            episode=y,
                            year=date, 
                            plot=plot, 
                            rating=rating, 

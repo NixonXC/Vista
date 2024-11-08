@@ -33,7 +33,7 @@ body {
     border-bottom-right-radius: 1px;
 }
 .main button {
-    padding: 1em;
+    padding: 0.8em;
     font-family: 'Kanit', sans-serif;
     font-size: 0.7em;
     background-color: rgb(22, 196, 188);
@@ -97,6 +97,16 @@ body {
     border: none;
     color: #fff;
     cursor: pointer;
+}
+
+#x {
+    width: 8%;
+    border-top-left-radius: 1px;
+    text-align: center;
+    border-bottom-left-radius: 1px;
+    border-right: none;
+    border-left: none;
+    margin: 0;
 }
 
 @media (max-width: 768px) {

@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vista Movies</title>
+    <title>Vista Series</title>
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
     <!-- Navbar -->
     <nav class="navbar">
         <div class="nav-container">
-            <h1 class="logo">Vista Movies</h1>
+            <h1 class="logo">Vista Series</h1>
             <button class="menu-toggle" onclick="toggleMenu()">☰</button>
             <ul class="nav-links">
                 <li><a href="/">Movies</a></li>
@@ -22,10 +22,12 @@
 
     <!-- Main Content -->
     <div class="main">
-        <form action="/movie" method="[POST,GET]">
-            <h1>Vista Movies</h1>
+        <form action="/watch" method="[POST,GET]">
+            <h1>Vista Series</h1>
             <p>Free Movies, TV Shows in a single click.</p>
-            <input type="text" id="name" name="name" placeholder="Movie Name" autocomplete="off">
+            <input type="text" id="name" name="name" placeholder="Series Name" autocomplete="off">
+            <input type="number" id="x" name="season" placeholder="Season" autocomplete="off" min="1">
+            <input type="number" id="x" name="epi" placeholder="Episode" autocomplete="off" min="1">
             <button type="submit">Search</button>
         </form>
     </div>
