@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ movie }}</title>
+    <meta name="description" content="{{ plot }}">
+    <link rel="stylesheet" href="/static/movies.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <h1 class="logo">Vista Movies</h1>
+            <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+            <ul class="nav-links">
+                <li><a href="/">Movies</a></li>
+                <li><a href="/series">Series</a></li>
+                <li><a href="/contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="main">
+        <iframe src="{{ vid }}" frameborder="0" allowfullscreen id="player"></iframe>
+        <h1> {{ movie }} </h1>
+        <p> {{ plot }} </p>
+        <p><span id="cyan">Release Year</span> {{ year }} </p>
+        <p><span id="cyan">Rating</span>: {{ rating }}/10 </p>
+        <p><span id="cyan">Genres</span>: {{ genre }} </p>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
