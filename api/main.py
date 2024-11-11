@@ -1,4 +1,5 @@
 from flask import Flask, request, redirect, url_for, render_template
+from discord_webhook import DiscordWebhook, DiscordEmbed
 import requests
 
 app = Flask(__name__)
@@ -26,6 +27,26 @@ def getInfo(id):
     
     # Access the first movie from the 'movies' array
     return data["data"]["movies"][0]  # Adjusted to access the first movie object
+
+# Create a route for my contact page
+@app.route('/contact')
+def contact():
+    return render_template('contact.html')
+
+@app.route('/send', methods=['POST','GET'])
+def send():
+    url = "https://discord.com/api/webhooks/1092031417577373817/P9Mkxczmjxi2NgMY1-lBQ00PdVbPTyw7v6kA7u5igM7RCnhonlNufa6hsb-NLAoKXMBP"
+    webhook = DiscordWebhook(url=url)
+    name = request.form.get("name")
+    email = request.form.get("email")
+    message = request.form.get("message")
+    embed = DiscordEmbed(title=f"Name: {name}", description='Message From Vista', color='03b2f8')
+    embed.add_embed_field(name="Email", value=email, inline=False)
+    embed.add_embed_field(name="Message", value=message)
+    webhook.add_embed(embed)
+    webhook.execute()
+    return redirect("/contact")
+
 
 @app.route('/movie')
 def movie():
