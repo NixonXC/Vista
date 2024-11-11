@@ -87,7 +87,6 @@ iframe {
     margin-bottom: 10vh;
 }
 @media (max-width: 768px) {
-
     iframe {
         height: 30vh;
     }
